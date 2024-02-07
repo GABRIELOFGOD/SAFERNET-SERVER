@@ -1,0 +1,12 @@
+const validator = require('validator')
+const bcrypt = require('bcrypt')
+
+const emailValidator = (email) => validator.isEmail(email)
+
+const salt = () => bcrypt.genSalt(10)
+
+const passwordHash = (password, salted) => bcrypt.hash(password, salted)
+
+const passwordCompare = (password, savedPassword) => bcrypt.compare(password, savedPassword)
+
+module.exports = {emailValidator, salt, passwordHash, passwordCompare}
