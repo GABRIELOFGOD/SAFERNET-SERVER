@@ -1,6 +1,12 @@
 const Admin = require("../model/administrator.model");
+const Blog = require("../model/blog.model");
 
 const emailChecker = (email) => Admin.findOne({email});
+
 const phoneChecker = (mobile) => Admin.findOne({mobile});
 
-module.exports = {emailChecker, phoneChecker};
+const blogChecker = (body) => Blog.findOne({body});
+
+const allBlogs = () => Blog.find();
+
+module.exports = {emailChecker, phoneChecker, blogChecker, allBlogs};

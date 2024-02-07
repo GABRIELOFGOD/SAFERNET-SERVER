@@ -1,7 +1,9 @@
 const express = require('express');
-const { blogPoster } = require('../controller/blog.controller');
+const { blogPoster, getBlogs } = require('../controller/blog.controller');
 const router = express.Router();
 const multer = require('multer');
+const { checkingForAdmin } = require('../middleware/adminchecker.middleware');
+const { adminIdentifier } = require('../middleware/identifier.middleware');
 
 const storage = multer.diskStorage({
     filename: (req, file, cb) => {
@@ -12,5 +14,6 @@ const storage = multer.diskStorage({
 const upload = multer({storage});
 
 router.route('/post', upload.single('image')).post(blogPoster);
+router.get('/get', checkingForAdmin, adminIdentifier, getBlogs)
 
 module.exports = router;
