@@ -2,6 +2,7 @@ const exprees = require('express');
 require('dotenv').config();
 const blogRouter = require('./routes/blog.router');
 const adminRouter = require('./routes/administrator.router');
+const campaignRouter = require('./routes/campaign.router')
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
 const mongoDbConnect = require('./config/mongodb.config');
@@ -17,6 +18,7 @@ app.use(cors())
 // ==================== END POINTS ======================== //
 app.use('/blog', blogRouter);
 app.use('/admin', adminRouter);
+app.use('/campaign', campaignRouter);
 
 app.listen(PORT, () => {
     console.log(`Server listening to http://localhost:${PORT}`)

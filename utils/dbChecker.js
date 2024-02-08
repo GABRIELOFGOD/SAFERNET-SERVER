@@ -9,4 +9,6 @@ const blogChecker = (body) => Blog.findOne({body});
 
 const allBlogs = () => Blog.find();
 
-module.exports = {emailChecker, phoneChecker, blogChecker, allBlogs};
+const checkCampaign = () => ''
+
+module.exports = {emailChecker, phoneChecker, blogChecker, allBlogs, checkCampaign};

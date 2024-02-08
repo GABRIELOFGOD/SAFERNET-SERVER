@@ -55,9 +55,6 @@ const blogPoster = async (req, res) => {
             const newBlog = await blogCreator(theBlog);
             res.status(201).json({message: 'Blog created successfully', newBlog})
         })
-        if(req.file) {
-
-        }
     } catch (err) {
         res.status(401).json({error: 'something went wrong check the error log or try again later', success: false, errLog: err})
     }
