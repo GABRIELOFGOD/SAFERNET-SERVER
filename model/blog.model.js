@@ -17,7 +17,7 @@ var blogSchema = new mongoose.Schema({
         ref: 'Admin'
     }
 
-});
+}, {timestamps: true});
 
 //Export the model
 const Blog = mongoose.model('Blog', blogSchema);

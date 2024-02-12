@@ -38,21 +38,26 @@ const createAdmin = async (req, res) => {
 
 const loginAdmin = async (req, res) => {
     const {email, phone, password} = req.body;
+    // console.log(req.body)
     try {
-
+        
         // ===================== CHECKING FOR DOUBLE ENTRY ================== //
         if(email && phone) return res.status(401).json({error: 'Can not input email and mobile at the same time', success: false})
-        
+        let choice = email || phone
         // ===================== VALIDATING INPUTS ========================= //
-        if(!email && !phone || !password) return res.status(401).json({error: 'Login with your email or phone number and your password inclusive', success: false})
+        if(!choice) return res.status(401).json({error: 'Login with your email or phone number and your password inclusive', success: false})
+        // console.log('got here')
 
+        if(!password) return res.status(401).json({error: 'Login with your email or phone number and your password inclusive', success: false})
+        
         // ===================== CHECKING IF USER EXISTS ============================ //
         const seenEmail = await emailChecker(email);
         const seenPhone = await phoneChecker(phone);
-
+        
         const theUser = seenEmail || seenPhone
-
+        
         if(!theUser) return res.status(401).json({error: 'Invalid credentials! Check your inputs and try again', success: false})
+        // console.log('got here')
 
         // ======================== COMPARING PASSWORD ====================== //
         const validPassword = await passwordCompare(password, theUser.password);

@@ -2,6 +2,7 @@ const jwt = require("jsonwebtoken");
 const Admin = require("../model/administrator.model");
 const Blog = require("../model/blog.model");
 const Campaign = require("../model/campaign.model");
+const Event = require("../model/event.model");
 
 const adminCreator = (admin) => Admin.create(admin);
 
@@ -9,6 +10,8 @@ const createdToken = (id) => {return(jwt.sign({id}, process.env.SAFERNET_SECRET_
 
 const blogCreator = (blog) => Blog.create(blog);
 
-const campaignCreator = (prep) => Campaign.create();
+const campaignCreator = (prep) => Campaign.create(prep);
 
-module.exports = {adminCreator, createdToken, blogCreator, campaignCreator}
+const eventCreature = (event) => Event.create(event)
+
+module.exports = { adminCreator, createdToken, blogCreator, campaignCreator, eventCreature }

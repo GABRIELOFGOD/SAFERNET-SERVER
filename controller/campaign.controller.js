@@ -7,7 +7,7 @@ const ourCampaignPost = async (req, res) => {
     const {title, body} = req.body;
     try {
         
-        const campaignExists = await checkCampaign();
+        const campaignExists = await checkCampaign(title);
         if(campaignExists) return res.status(401).json({error: 'This campaign has already been posted', success: false});
 
         
