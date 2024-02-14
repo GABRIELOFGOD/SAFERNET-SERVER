@@ -2,6 +2,7 @@ const Admin = require("../model/administrator.model");
 const Blog = require("../model/blog.model");
 const Campaign = require("../model/campaign.model");
 const Event = require("../model/event.model");
+const Report = require("../model/report.model");
 
 const emailChecker = (email) => Admin.findOne({email});
 
@@ -13,6 +14,12 @@ const allBlogs = () => Blog.find();
 
 const checkCampaign = (title) => Campaign.findOne({title});
 
-const checkEvent = (topic) => Event.findOne({topic})
+const checkEvent = (title) => Event.findOne({title});
 
-module.exports = {emailChecker, phoneChecker, blogChecker, allBlogs, checkCampaign, checkEvent};
+const getEvent = () => Event.find();
+
+const allReports = () => Report.find();
+
+const campaginGetter = () => Campaign.find();
+
+module.exports = {emailChecker, phoneChecker, blogChecker, allBlogs, checkCampaign, checkEvent, getEvent, allReports, campaginGetter};

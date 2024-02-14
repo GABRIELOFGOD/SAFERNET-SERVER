@@ -9,4 +9,6 @@ const passwordHash = (password, salted) => bcrypt.hash(password, salted)
 
 const passwordCompare = (password, savedPassword) => bcrypt.compare(password, savedPassword)
 
-module.exports = {emailValidator, salt, passwordHash, passwordCompare}
+const urlValidator = (url) => validator.isURL(url)
+
+module.exports = {emailValidator, salt, passwordHash, passwordCompare, urlValidator}

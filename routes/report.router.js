@@ -1,9 +1,9 @@
-const express = require('express');
-const { blogPoster, getBlogs } = require('../controller/blog.controller');
-const router = express.Router();
 const multer = require('multer');
+const { makeReport, getReports } = require('../controller/report.controller');
 const { checkingForAdmin } = require('../middleware/adminchecker.middleware');
 const { adminIdentifier } = require('../middleware/identifier.middleware');
+
+const router = require('express').Router();
 
 const storage = multer.diskStorage({
     filename: (req, file, cb) => {
@@ -13,8 +13,8 @@ const storage = multer.diskStorage({
 
 const upload = multer({storage});
 
-router.route('/post', upload.single('image')).post(blogPoster);
-router.get('/get', getBlogs)
-// router.get('/get', checkingForAdmin, adminIdentifier, getBlogs);
+router.post('/post', upload.single('file'), makeReport);
+
+router.get('/get', checkingForAdmin, adminIdentifier, getReports)
 
 module.exports = router;

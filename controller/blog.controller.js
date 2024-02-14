@@ -11,6 +11,8 @@ const blogPoster = async (req, res) => {
         if(!body || body.length <= 2) return res.status(402).json({error: 'Add contents to your blog', success: false})
 
         const cookie = req.headers.cookie
+        if(!cookie) return res.status(401).json({error: 'Authentication failed, please try again or login your account again', success: false})
+        
         const cookieName = cookie.split('=')[0]
         const cookieToken = cookie.split('=')[1]
 

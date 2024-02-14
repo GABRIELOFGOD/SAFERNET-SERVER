@@ -1,4 +1,4 @@
-const { createEvent } = require('../controller/event.controller');
+const { createEvent, allEvents } = require('../controller/event.controller');
 const multer = require('multer')
 const router = require('express').Router();
 
@@ -11,5 +11,7 @@ const storage = multer.diskStorage({
 const upload = multer({storage});
 
 router.post('/new', upload.single('image'), createEvent);
+
+router.get('/get', allEvents)
 
 module.exports = router;

@@ -1,6 +1,6 @@
 const cloudinary = require("../config/cloudinary.config");
 const { eventCreature } = require("../utils/creator");
-const { checkEvent } = require("../utils/dbChecker");
+const { checkEvent, getEvent } = require("../utils/dbChecker");
 
 
 const createEvent = async (req, res) => {
@@ -25,12 +25,31 @@ const createEvent = async (req, res) => {
                     image: result.secure_url
                 }
                 const newEvent = await eventCreature(event);
-                res.json({message: 'Event uploaded successfully'})
+                return res.json({message: 'Event uploaded successfully'})
             })
         }
+
+        const event = {
+            title,
+            about,
+            date,
+            time,
+            venue
+        }
+        const newEvent = await eventCreature(event);
+        res.json({message: 'Event uploaded successfully'})
     } catch (err) {
         res.status(401).json({error: 'something went wrong check the error log or try again later', success: false, errLog: err})
     }
 }
 
-module.exports = { createEvent }
+const allEvents = async (req, res) => {
+    try {
+        const events = await getEvent();
+        res.json(events)
+    } catch (err) {
+        res.status(401).json({error: 'something went wrong check the error log or try again later', success: false, errLog: err})
+    }
+}
+
+module.exports = { createEvent, allEvents }

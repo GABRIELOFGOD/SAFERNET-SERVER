@@ -1,4 +1,4 @@
-const { ourCampaignPost } = require('../controller/campaign.controller');
+const { ourCampaignPost, getCampaign } = require('../controller/campaign.controller');
 const multer = require('multer');
 const router = require('express').Router();
 
@@ -12,4 +12,6 @@ const upload = multer({storage});
 
 router.post('/post', upload.single('iamge'), ourCampaignPost);
 
-module.exports = router
+router.get('/get', getCampaign);
+
+module.exports = router;
