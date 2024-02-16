@@ -14,7 +14,7 @@ const PORT = process.env.PORT || 3200
 mongoDbConnect();
 
 app.use(cors({
-    origin: '*',
+    origin: 'https://safernet-gamma.vercel.app',
     credentials: true
 }))
 app.use(express.json());
