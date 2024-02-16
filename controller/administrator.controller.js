@@ -65,7 +65,7 @@ const loginAdmin = async (req, res) => {
 
         // ======================= CREATING COOKIE TOKEN ======================== //
         const token = createdToken(theUser._id)
-        res.cookie('SaferAdmin', token, { httpOnly: true, maxAge: 1000*60*60*24*3 })
+        res.cookie('SaferAdmin', token, { httpOnly: true, maxAge: 1000*60*60*24*3, secure:true, sameSite:'none', })
         res.json({message: 'Admin Logged in successfully'})
     } catch (err) {
         res.status(401).json({error: 'something went wrong check the error log or try again later', success: false, errLog: err});
