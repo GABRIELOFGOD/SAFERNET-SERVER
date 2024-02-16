@@ -1,4 +1,4 @@
-const exprees = require('express');
+const express = require('express');
 require('dotenv').config();
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
@@ -9,15 +9,15 @@ const campaignRouter = require('./routes/campaign.router');
 const eventRouter = require('./routes/event.router');
 const reportRouter = require('./routes/report.router');
 
-const app = exprees();
+const app = express();
 const PORT = process.env.PORT || 3200
 mongoDbConnect();
 
 app.use(cors({
-    origin: 'http://localhost:5173',
+    origin: '*',
     credentials: true
 }))
-app.use(exprees.json());
+app.use(express.json());
 app.use(cookieParser())
 
 // ==================== END POINTS ======================== //

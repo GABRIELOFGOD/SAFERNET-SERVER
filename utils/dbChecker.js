@@ -8,6 +8,8 @@ const emailChecker = (email) => Admin.findOne({email});
 
 const phoneChecker = (mobile) => Admin.findOne({mobile});
 
+const adminFinder = id => Admin.findById(id)
+
 const blogChecker = (body) => Blog.findOne({body});
 
 const allBlogs = () => Blog.find();
@@ -22,4 +24,4 @@ const allReports = () => Report.find();
 
 const campaginGetter = () => Campaign.find();
 
-module.exports = {emailChecker, phoneChecker, blogChecker, allBlogs, checkCampaign, checkEvent, getEvent, allReports, campaginGetter};
+module.exports = {emailChecker, phoneChecker, adminFinder, blogChecker, allBlogs, checkCampaign, checkEvent, getEvent, allReports, campaginGetter};

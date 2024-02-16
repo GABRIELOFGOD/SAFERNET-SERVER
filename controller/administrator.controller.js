@@ -72,4 +72,15 @@ const loginAdmin = async (req, res) => {
     }
 }
 
-module.exports = {createAdmin, loginAdmin};
+const adminGetter = async (req, res) => {
+    try {
+        
+        const theAdmin = req.admin;
+        const user = theAdmin.name;
+        res.status(201).json({message: 'Amin found', user})
+    } catch (err) {
+        res.status(401).json({error: 'something went wrong check the error log or try again later', success: false, errLog: err});
+    }
+}
+
+module.exports = {createAdmin, loginAdmin, adminGetter};

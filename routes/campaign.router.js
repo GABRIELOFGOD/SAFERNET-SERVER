@@ -4,13 +4,14 @@ const router = require('express').Router();
 
 const storage = multer.diskStorage({
     filename: (req, file, cb) => {
-        cb(`${Date.now()}_${file.originalname}`);
+        cb(null, `${Date.now()}_${file.originalname}`);
     }
 });
 
-const upload = multer({storage});
+const upload = multer({storage})
 
-router.post('/post', upload.single('iamge'), ourCampaignPost);
+// router.route('/post', upload.single('file')).post(ourCampaignPost);
+router.post('/post', upload.single('file'), ourCampaignPost)
 
 router.get('/get', getCampaign);
 
