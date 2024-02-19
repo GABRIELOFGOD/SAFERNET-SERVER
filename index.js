@@ -17,8 +17,8 @@ const PORT = process.env.PORT || 3200
 mongoDbConnect();
 
 app.use(cors({
-    origin: 'http://localhost:5173',
-    // origin: 'https://safernet-gamma.vercel.app',
+    // origin: 'http://localhost:5173',
+    origin: 'https://safernet-gamma.vercel.app',
     credentials: true
 }))
 app.use(
