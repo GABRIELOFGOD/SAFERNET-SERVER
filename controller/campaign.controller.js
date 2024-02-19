@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken')
-const { checkCampaign, campaginGetter } = require("../utils/dbChecker");
+const { checkCampaign, campaginGetter, oneCampaign } = require("../utils/dbChecker");
 const { campaignCreator } = require('../utils/creator');
 const Admin = require('../model/administrator.model');
 const cloudinary = require('../config/cloudinary.config')
@@ -77,4 +77,20 @@ const getCampaign = async(req, res) => {
     }
 }
 
-module.exports = {ourCampaignPost, getCampaign};
+const singleCampagin = async (req, res) => {
+    const {id} = req.params;
+    try {
+        
+        if(!id) return res.status(401).json({error: 'There is no id passed to be search for', success: false})
+
+        const theCampaign = await oneCampaign(id);
+
+        if(!theCampaign) return res.status(401).json({error: 'No campaign found', success: false});
+
+        res.status(201).json({theCampaign});
+    } catch (err) {
+        res.status(401).json({error: 'Error occur while Fetching Campaigns check the error log or try again later', success: false, errLog: err});
+    }
+}
+
+module.exports = {ourCampaignPost, getCampaign, singleCampagin};

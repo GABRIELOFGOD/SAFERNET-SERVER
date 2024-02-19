@@ -1,5 +1,5 @@
 const express = require('express');
-const { blogPoster, getBlogs } = require('../controller/blog.controller');
+const { blogPoster, getBlogs, oneBlog, deleteBlog, updateBlog } = require('../controller/blog.controller');
 const router = express.Router();
 const multer = require('multer');
 const { checkingForAdmin } = require('../middleware/adminchecker.middleware');
@@ -13,8 +13,11 @@ const storage = multer.diskStorage({
 
 const upload = multer({storage});
 
-router.route('/post', upload.single('image')).post(blogPoster);
+router.post('/post', upload.single('image'), blogPoster);
 router.get('/get', getBlogs)
+router.route('/get/:id').get(oneBlog)
+router.delete('/get/:id', deleteBlog)
+router.put('/get/:id', checkingForAdmin, adminIdentifier, upload.single('image'), updateBlog)
 // router.get('/get', checkingForAdmin, adminIdentifier, getBlogs);
 
 module.exports = router;
