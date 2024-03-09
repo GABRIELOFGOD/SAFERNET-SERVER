@@ -4,6 +4,8 @@ const Blog = require("../model/blog.model");
 const Campaign = require("../model/campaign.model");
 const Event = require("../model/event.model");
 const Report = require("../model/report.model");
+const Newsletter = require("../model/newsletter.model");
+const Abuse = require("../model/LAW/report.model");
 
 const adminCreator = (admin) => Admin.create(admin);
 
@@ -15,6 +17,9 @@ const campaignCreator = (prep) => Campaign.create(prep);
 
 const eventCreature = (event) => Event.create(event);
 
-const reportCreator = report => Report.create(report)
+const reportCreator = report => Report.create(report);
 
-module.exports = { adminCreator, createdToken, blogCreator, campaignCreator, eventCreature, reportCreator }
+const newsletterCreator = email => Newsletter.create(email);
+
+
+module.exports = { adminCreator, createdToken, blogCreator, campaignCreator, eventCreature, reportCreator, newsletterCreator }

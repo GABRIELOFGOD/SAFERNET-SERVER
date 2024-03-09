@@ -10,6 +10,10 @@ const adminRouter = require('./routes/administrator.router');
 const campaignRouter = require('./routes/campaign.router');
 const eventRouter = require('./routes/event.router');
 const reportRouter = require('./routes/report.router');
+const newsletterRouter = require('./routes/newsletter.router');
+
+// =================== LAW AND ABUSE ROUTES ====================== //
+const lawReportRouter = require('./routes/LAW/report.router')
 
 const app = express();
 app.use(helmet())
@@ -17,8 +21,8 @@ const PORT = process.env.PORT || 3200
 mongoDbConnect();
 
 app.use(cors({
-    // origin: 'http://localhost:5173',
-    origin: 'https://safernet-gamma.vercel.app',
+    origin: 'http://localhost:5173',
+    // origin: 'https://safernet-gamma.vercel.app',
     credentials: true
 }))
 app.use(
@@ -38,6 +42,10 @@ app.use('/admin', adminRouter);
 app.use('/campaign', campaignRouter);
 app.use('/event', eventRouter);
 app.use('/report', reportRouter);
+app.use('/newsletter', newsletterRouter);
+
+// ================== REPORT END-POINTS ================== //
+app.use('/abuse', lawReportRouter);
 
 app.listen(PORT, () => {
     console.log(`Server listening to http://localhost:${PORT}`);

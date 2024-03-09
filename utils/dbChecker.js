@@ -2,6 +2,7 @@ const Admin = require("../model/administrator.model");
 const Blog = require("../model/blog.model");
 const Campaign = require("../model/campaign.model");
 const Event = require("../model/event.model");
+const Newsletter = require("../model/newsletter.model");
 const Report = require("../model/report.model");
 
 const emailChecker = (email) => Admin.findOne({email});
@@ -28,4 +29,7 @@ const checkCampaign = (title) => Campaign.findOne({title});
 const campaginGetter = () => Campaign.find();
 const oneCampaign = id => Campaign.findById(id);
 
-module.exports = {emailChecker, phoneChecker, adminFinder, blogChecker, allBlogs, checkCampaign, checkEvent, getEvent, allReports, campaginGetter, singleBlog, blogDeleter, blogUpdater, oneCampaign};
+// ======================= NEWSLETTER DB CHECKER ================================== //
+const checkNewsletter = email => Newsletter.find({email});
+
+module.exports = {emailChecker, phoneChecker, adminFinder, blogChecker, allBlogs, checkCampaign, checkEvent, getEvent, allReports, campaginGetter, singleBlog, blogDeleter, blogUpdater, oneCampaign, checkNewsletter};
