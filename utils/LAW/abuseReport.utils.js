@@ -18,20 +18,20 @@ const caseCodeCreator = (type) => {
     let firstBatch = ''
     let secondBatch = ''
 
-    // for(let i; i < 7; i++){
-    //     let randSelect = Math.floor(Math.random()*allTogether.length)
-    //     firstBatch += randSelect
-    // }
+    for(let i = 0; i < 7; i++){
+        let randSelect = Math.floor(Math.random()*allTogether.length)
+        firstBatch += allTogether[randSelect]
+    }
 
-    // for(let i; i < 5; i++){
-    //     let randSelect = Math.floor(Math.random()*allTogether.length)
-    //     secondBatch += randSelect
-    // }
+    for(let i = 0; i < 5; i++){
+        let randSelect = Math.floor(Math.random()*allTogether.length)
+        secondBatch += allTogether[randSelect]
+    }
 
     theCode = `${firstBatch}-${type}-${secondBatch}`
     return theCode
-
 }
+
 
 function reverseString(str) {
     var newString = "";
@@ -40,5 +40,7 @@ function reverseString(str) {
     }
     return newString;
 }
+
+
 
 module.exports = { gettingReportLength, caseCodeCreator, reverseString }

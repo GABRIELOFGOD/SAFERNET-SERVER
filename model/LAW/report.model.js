@@ -4,7 +4,7 @@ const mongoose = require('mongoose'); // Erase if already required
 const abuseSchema = new mongoose.Schema({
     name:String,
     email:String,
-    Phone:String,
+    phone:String,
     age:String,
     gender:String,
     abuse:String,
@@ -13,7 +13,9 @@ const abuseSchema = new mongoose.Schema({
     actionTaken: String,
     actionWant:String,
     caseId:String,
-    caseCode:String
+    caseCode:String,
+    caseStatus: String,
+    reportMeans:String
 }, {timestamps:true});
 
 //Export the model
