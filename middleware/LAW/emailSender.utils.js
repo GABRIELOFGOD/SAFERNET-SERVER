@@ -7,7 +7,7 @@ const caseCodeEmailSender = (email, name, caseCode) => {
     <p>Please note that it will take us at least a week to pick up your case and if you want us to take it up with immediate effect, kindly reach out to us through our virtual support or phone call</p>
     <br>
     <p>In other to keep track of your report case, login to our website to track your case with your email ${email} and this case code</p>
-    <h3>${caseCode}</h3>
+    <h3 style="color: blue;">${caseCode}</h3>
     <small>&copy; safernet</small>
     `
 

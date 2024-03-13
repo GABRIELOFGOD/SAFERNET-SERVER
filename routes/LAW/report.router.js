@@ -1,5 +1,5 @@
 const multer = require('multer');
-const { lawReportPoster } = require('../../controller/LAW/report.controller');
+const { lawReportPoster, caseReportTrack } = require('../../controller/LAW/report.controller');
 
 const router = require('express').Router();
 
@@ -12,5 +12,6 @@ const storage = multer.diskStorage({
 const upload = multer({storage});
 
 router.post('/post', upload.single('evidence'), lawReportPoster)
+router.post('/track', caseReportTrack)
 
 module.exports = router
