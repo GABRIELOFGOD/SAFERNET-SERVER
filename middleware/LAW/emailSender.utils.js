@@ -3,10 +3,10 @@ const caseCodeEmailSender = (email, name, caseCode) => {
 
     let mess = 
     `<h1>Hello ${name}</h1>
-    <p>Your Report has been recorded and the necessary action will be taken</p>
-    <p>Please note that it will take us at least a week to pick up your case and if you want us to take it up with immediate effect, kindly reach out to us through our virtual support or phone call</p>
+    <p>Your Report has been recorded and necessary action shall be taken</p>
+    <p>Please note that it will take us at least a week to resolve your case. If this case is urgent, kindly call our toll-free line right away</p>
     <br>
-    <p>In other to keep track of your report case, login to our website to track your case with your email ${email} and this case code</p>
+    <p>In other to keep track of your case, login to our website to track your case with your email ${email} and case code</p>
     <h3 style="color: blue;">${caseCode}</h3>
     <small>&copy; safernet</small>
     `

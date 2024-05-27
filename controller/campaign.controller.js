@@ -87,7 +87,7 @@ const singleCampagin = async (req, res) => {
 
         if(!theCampaign) return res.status(401).json({error: 'No campaign found', success: false});
 
-        res.status(201).json({theCampaign});
+        res.status(201).json({message: 'Campaign fetched', success: true, data: theCampaign});
     } catch (err) {
         res.status(401).json({error: 'Error occur while Fetching Campaigns check the error log or try again later', success: false, errLog: err});
     }
