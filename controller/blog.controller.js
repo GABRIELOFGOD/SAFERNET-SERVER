@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 const Admin = require('../model/administrator.model');
 const cloudinary = require('../config/cloudinary.config');
 const { blogCreator } = require('../utils/creator');
-const { blogChecker, allBlogs, singleBlog, blogDeleter, blogUpdater } = require('../utils/dbChecker');
+const { blogChecker, allBlogs, singleBlog, blogDeleter, blogUpdater, singleBlogTitle } = require('../utils/dbChecker');
 
 const blogPoster = async (req, res) => {
     const {title, body} = req.body;
@@ -73,19 +73,29 @@ const getBlogs = async (req, res) => {
     }
 }
 
+
+const reverseUrlFormatter = url => {
+    const formattedUrl = url.replace(/-/g, ' ');
+    return formattedUrl;
+};
+  
+
 const oneBlog = async (req, res) => {
-    const {id} = req.params;
+    const {title} = req.params;
     try {
 
-        if(!id) return res.status(401).json({error: 'Kindly add an id parameter to search for the blog', success: false})
+        if(!title) return res.status(401).json({error: 'Kindly add an id parameter to search for the blog', success: false});
+
+        const newTitle = reverseUrlFormatter(title)
         
-        const theBlog = await singleBlog(id)
+        const theBlog = await singleBlogTitle(newTitle)
 
         if(!theBlog) return res.status(401).json({error: 'No Blog found', success: false});
 
         res.status(201).json({theBlog});
 
     } catch (err) {
+        console.log(err)
         res.status(401).json({error: 'something went wrong check the error log or try again later', success: false, errLog: err});
     }
 }

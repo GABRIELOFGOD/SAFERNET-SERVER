@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken')
 
 const checkingForAdmin = (req, res, next) => {
     const cookie = req.headers.cookie;
-    console.log('cookie', cookie)
+    // console.log('cookie', cookie)
     try {
 
         const cookieName = cookie.split('=')[0];

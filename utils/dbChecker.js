@@ -2,6 +2,7 @@ const Admin = require("../model/administrator.model");
 const Blog = require("../model/blog.model");
 const Campaign = require("../model/campaign.model");
 const Event = require("../model/event.model");
+const { GenFellow } = require("../model/fellow.model");
 const Newsletter = require("../model/newsletter.model");
 const Report = require("../model/report.model");
 
@@ -15,6 +16,7 @@ const adminFinder = id => Admin.findById(id)
 const blogChecker = (body) => Blog.findOne({body});
 const allBlogs = () => Blog.find();
 const singleBlog = id => Blog.findById(id);
+const singleBlogTitle = title => Blog.findOne({title});
 const blogDeleter = id => Blog.findByIdAndDelete(id);
 const blogUpdater = (id, body) => Blog.findByIdAndUpdate(id, body);
 
@@ -30,6 +32,10 @@ const campaginGetter = () => Campaign.find();
 const oneCampaign = id => Campaign.findById(id);
 
 // ======================= NEWSLETTER DB CHECKER ================================== //
-const checkNewsletter = email => Newsletter.find({email});
+const checkNewsletter = email => Newsletter.findOne({email});
 
-module.exports = {emailChecker, phoneChecker, adminFinder, blogChecker, allBlogs, checkCampaign, checkEvent, getEvent, allReports, campaginGetter, singleBlog, blogDeleter, blogUpdater, oneCampaign, checkNewsletter};
+// ===================== FELLOW DOMAIN ============================= //
+const checkFellow = email => GenFellow.findOne({email})
+const checkFellowId = fellowId => GenFellow.findOne({fellowId})
+
+module.exports = { emailChecker, phoneChecker, adminFinder, blogChecker, allBlogs, checkCampaign, checkEvent, getEvent, allReports, campaginGetter, singleBlog, blogDeleter, blogUpdater, oneCampaign, checkNewsletter, checkFellow, checkFellowId, singleBlogTitle };

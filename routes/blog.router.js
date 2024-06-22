@@ -15,7 +15,7 @@ const upload = multer({storage});
 
 router.post('/post', upload.single('image'), blogPoster);
 router.get('/get', getBlogs)
-router.route('/get/:id').get(oneBlog)
+router.route('/get/:title').get(oneBlog)
 router.delete('/get/:id', deleteBlog)
 router.put('/get/:id', checkingForAdmin, adminIdentifier, upload.single('image'), updateBlog)
 // router.get('/get', checkingForAdmin, adminIdentifier, getBlogs);

@@ -6,6 +6,7 @@ const Event = require("../model/event.model");
 const Report = require("../model/report.model");
 const Newsletter = require("../model/newsletter.model");
 const Abuse = require("../model/LAW/report.model");
+const { GenFellow, Fellow } = require("../model/fellow.model");
 
 const adminCreator = (admin) => Admin.create(admin);
 
@@ -22,4 +23,10 @@ const reportCreator = report => Report.create(report);
 const newsletterCreator = email => Newsletter.create(email);
 
 
-module.exports = { adminCreator, createdToken, blogCreator, campaignCreator, eventCreature, reportCreator, newsletterCreator }
+// ================ FOR FELLOWS ======================== //
+const fellowIdCreate = details => GenFellow.create(details);
+
+const fellowCreator = details => Fellow.create(details);
+
+
+module.exports = { adminCreator, createdToken, blogCreator, campaignCreator, eventCreature, reportCreator, newsletterCreator, fellowIdCreate, fellowCreator }
