@@ -3,6 +3,7 @@ const Blog = require("../model/blog.model");
 const Campaign = require("../model/campaign.model");
 const Event = require("../model/event.model");
 const { GenFellow } = require("../model/fellow.model");
+const Media = require("../model/media.model");
 const Newsletter = require("../model/newsletter.model");
 const Report = require("../model/report.model");
 
@@ -34,8 +35,13 @@ const oneCampaign = id => Campaign.findById(id);
 // ======================= NEWSLETTER DB CHECKER ================================== //
 const checkNewsletter = email => Newsletter.findOne({email});
 
+// ================== MEDIA AZALIA ========================= //
+const allMediaPhoto = () => Media.find();
+const mediaPhotoExists = (link) => Media.findOne({link});
+const mediaPhotoTitle = title => Media.findOne({title});
+
 // ===================== FELLOW DOMAIN ============================= //
 const checkFellow = email => GenFellow.findOne({email})
 const checkFellowId = fellowId => GenFellow.findOne({fellowId})
 
-module.exports = { emailChecker, phoneChecker, adminFinder, blogChecker, allBlogs, checkCampaign, checkEvent, getEvent, allReports, campaginGetter, singleBlog, blogDeleter, blogUpdater, oneCampaign, checkNewsletter, checkFellow, checkFellowId, singleBlogTitle };
+module.exports = { emailChecker, phoneChecker, adminFinder, blogChecker, allBlogs, checkCampaign, checkEvent, getEvent, allReports, campaginGetter, singleBlog, blogDeleter, blogUpdater, oneCampaign, checkNewsletter, checkFellow, checkFellowId, singleBlogTitle, allMediaPhoto, mediaPhotoExists, mediaPhotoTitle };

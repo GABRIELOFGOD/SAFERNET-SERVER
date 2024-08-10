@@ -5,6 +5,8 @@ const checkingForAdmin = (req, res, next) => {
     // console.log('cookie', cookie)
     try {
 
+        if(!cookie) return res.status(400).json({error: "Auth failed", success: false});
+
         const cookieName = cookie.split('=')[0];
         const token = cookie.split('=')[1];
         

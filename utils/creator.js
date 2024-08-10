@@ -7,6 +7,7 @@ const Report = require("../model/report.model");
 const Newsletter = require("../model/newsletter.model");
 const Abuse = require("../model/LAW/report.model");
 const { GenFellow, Fellow } = require("../model/fellow.model");
+const Media = require("../model/media.model");
 
 const adminCreator = (admin) => Admin.create(admin);
 
@@ -22,6 +23,8 @@ const reportCreator = report => Report.create(report);
 
 const newsletterCreator = email => Newsletter.create(email);
 
+const mediaPhotoPoster = payload => Media.create(payload);
+
 
 // ================ FOR FELLOWS ======================== //
 const fellowIdCreate = details => GenFellow.create(details);
@@ -29,4 +32,4 @@ const fellowIdCreate = details => GenFellow.create(details);
 const fellowCreator = details => Fellow.create(details);
 
 
-module.exports = { adminCreator, createdToken, blogCreator, campaignCreator, eventCreature, reportCreator, newsletterCreator, fellowIdCreate, fellowCreator }
+module.exports = { adminCreator, createdToken, blogCreator, campaignCreator, eventCreature, reportCreator, newsletterCreator, fellowIdCreate, fellowCreator, mediaPhotoPoster }
