@@ -13,7 +13,8 @@ const fellowRouter = require('./routes/fellow.router');
 const mediaRouter = require('./routes/media.router');
 
 // =================== LAW AND ABUSE ROUTES ====================== //
-const lawReportRouter = require('./routes/LAW/report.router')
+const lawReportRouter = require('./routes/LAW/report.router');
+const { generateSignature } = require('./config/sign');
 
 const app = express();
 const PORT = process.env.PORT || 3200
@@ -28,6 +29,8 @@ app.use(cors({
 
 app.use(express.json());
 app.use(cookieParser());
+
+app.post("/generate-signature", generateSignature)
 
 // ==================== END POINTS ======================== //
 app.use('/blog', blogRouter);

@@ -39,9 +39,11 @@ const checkNewsletter = email => Newsletter.findOne({email});
 const allMediaPhoto = () => Media.find();
 const mediaPhotoExists = (link) => Media.findOne({link});
 const mediaPhotoTitle = title => Media.findOne({title});
+const getMediaId = id => Media.findById(id);
+const deleteMediaId = id => Media.findByIdAndDelete(id);
 
 // ===================== FELLOW DOMAIN ============================= //
 const checkFellow = email => GenFellow.findOne({email})
 const checkFellowId = fellowId => GenFellow.findOne({fellowId})
 
-module.exports = { emailChecker, phoneChecker, adminFinder, blogChecker, allBlogs, checkCampaign, checkEvent, getEvent, allReports, campaginGetter, singleBlog, blogDeleter, blogUpdater, oneCampaign, checkNewsletter, checkFellow, checkFellowId, singleBlogTitle, allMediaPhoto, mediaPhotoExists, mediaPhotoTitle };
+module.exports = { emailChecker, phoneChecker, adminFinder, blogChecker, allBlogs, checkCampaign, checkEvent, getEvent, allReports, campaginGetter, singleBlog, blogDeleter, blogUpdater, oneCampaign, checkNewsletter, checkFellow, checkFellowId, singleBlogTitle, allMediaPhoto, mediaPhotoExists, mediaPhotoTitle, getMediaId, deleteMediaId };

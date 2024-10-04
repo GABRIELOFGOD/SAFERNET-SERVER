@@ -45,5 +45,6 @@ router.get('/get', getBlogs);
 router.route('/get/:title').get(oneBlog);
 router.delete('/get/:id', deleteBlog);
 router.put('/get/:id', checkingForAdmin, adminIdentifier, upload.single('image'), updateBlog);
+// router.post("/uploader", imageUploader);
 
 module.exports = router;

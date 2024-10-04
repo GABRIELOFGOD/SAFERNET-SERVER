@@ -1,7 +1,7 @@
 const { urlValidator } = require("../utils/validator");
 const cloudinary = require('../config/cloudinary.config');
 const { mediaPhotoPoster } = require("../utils/creator");
-const { allMediaPhoto, mediaPhotoExists, mediaPhotoTitle } = require("../utils/dbChecker");
+const { allMediaPhoto, mediaPhotoExists, mediaPhotoTitle, getMediaId, deleteMediaId } = require("../utils/dbChecker");
 
 const postMediaPhoto = async (req, res) => {
   const { title, link, desc } = req.body;
@@ -55,4 +55,18 @@ const getAllMediaPhoto = async (req, res) => {
   }
 }
 
-module.exports = { postMediaPhoto, getAllMediaPhoto };
+const deleteMedia = async (req, res) => {
+  const { id } = req.params;
+  try {
+    if(!id) return res.status(400).json({error: "Provide the media to be deleted", success: false});
+    const thePhoto = await deleteMediaId(id);
+    if(!thePhoto) return res.status(400).json({error: "There's no media to delete", success: false});
+
+    res.status(200).json({message: "Blog deleted successfully", success: true});
+
+  } catch (err) {
+    res.status(500).json({ error: 'something went wrong check the error log or try again later', success: false, errLog: err });
+  }
+}
+
+module.exports = { postMediaPhoto, getAllMediaPhoto, deleteMedia };
