@@ -4,13 +4,13 @@ const emailSender = (email, messgae, title) => {
     var transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
-            user: 'aletechglobal@gmail.com',
+            user: 'report@thesafernet.org',
             pass: process.env.GOOGLE_EMAIL_AUTH
         }
         });
 
         var mailOptions = {
-        from: 'aletechglobal@gmail.com',
+        from: 'Report from Safernet',
         to: email,
         subject: title,
         html: messgae
