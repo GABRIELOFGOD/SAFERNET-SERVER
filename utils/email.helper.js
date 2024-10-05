@@ -1,22 +1,27 @@
 var nodemailer = require('nodemailer');
-const emailSender = (email, messgae, title) => {
+const emailSender = (email, message, title) => {
+
+    var nodemailer = require('nodemailer');
 
     var transporter = nodemailer.createTransport({
-        service: 'gmail',
+        host: 'thesafernet.org',
+        port: 465,
+        secure: true,
         auth: {
             user: 'report@thesafernet.org',
             pass: process.env.GOOGLE_EMAIL_AUTH
         }
-        });
+    });
 
-        var mailOptions = {
-        from: 'Report from Safernet',
+    var mailOptions = {
+        from: 'Report from Safernet <report@thesafernet.org>',
         to: email,
         subject: title,
-        html: messgae
-        };
+        html: message
+    };
 
-        transporter.sendMail(mailOptions, function(error, info){
+    // Send the email
+    transporter.sendMail(mailOptions, function(error, info){
         if (error) {
             console.log(error);
         } else {
