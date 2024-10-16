@@ -11,6 +11,13 @@ var blogSchema = new mongoose.Schema({
     image: {
         type: String
     },
+    comment: [{
+        type: mongoose.Types.ObjectId,
+        ref: "Comment"
+    }],
+    category: [{
+        type: String,
+    }],
     postedBy: String,
     posterId: {
         type: mongoose.Types.ObjectId,
