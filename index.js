@@ -11,6 +11,7 @@ const reportRouter = require('./routes/report.router');
 const newsletterRouter = require('./routes/newsletter.router');
 const fellowRouter = require('./routes/fellow.router');
 const mediaRouter = require('./routes/media.router');
+const commentRouter = require('./routes/comment.router');
 
 // =================== LAW AND ABUSE ROUTES ====================== //
 const lawReportRouter = require('./routes/LAW/report.router');
@@ -41,6 +42,7 @@ app.use('/report', reportRouter);
 app.use('/newsletter', newsletterRouter);
 app.use('/fellow', fellowRouter);
 app.use('/media', mediaRouter);
+app.use('/comment', commentRouter);
 
 // ================== REPORT END-POINTS ================== //
 app.use('/abuse', lawReportRouter);

@@ -325,23 +325,23 @@ const reverseUrlFormatter = url => {
   
 
 const oneBlog = async (req, res) => {
-    const {title} = req.params;
-    try {
+  const {title} = req.params;
+  try {
 
-        if(!title) return res.status(401).json({error: 'Kindly add an id parameter to search for the blog', success: false});
+      if(!title) return res.status(401).json({error: 'Kindly add an id parameter to search for the blog', success: false});
 
-        const newTitle = reverseUrlFormatter(title)
-        
-        const theBlog = await singleBlogTitle(newTitle)
+      const newTitle = reverseUrlFormatter(title)
+      
+      const theBlog = await singleBlogTitle(newTitle).populate('comment');
 
-        if(!theBlog) return res.status(401).json({error: 'No Blog found', success: false});
+      if(!theBlog) return res.status(401).json({error: 'No Blog found', success: false});
 
-        res.status(201).json({theBlog});
+      res.status(201).json({theBlog});
 
-    } catch (err) {
-        console.log(err)
-        res.status(401).json({error: 'something went wrong check the error log or try again later', success: false, errLog: err});
-    }
+  } catch (err) {
+      console.log(err)
+      res.status(401).json({error: 'something went wrong check the error log or try again later', success: false, errLog: err});
+  }
 }
 
 const deleteBlog = async (req, res) => {

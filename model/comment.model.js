@@ -6,11 +6,23 @@ var commentSchema = new mongoose.Schema({
         type:String,
         required:true,
     },
-    commentBy:{
+    // commentBy:{
+    //     type: mongoose.Types.ObjectId,
+    //     required:true,
+    //     ref: "User"
+    // },
+    name:{
+        type:String,
+        required:true
+    },
+    email:{
+        type:String,
+    },
+    blogId:{
         type: mongoose.Types.ObjectId,
         required:true,
-        ref: "User"
-    },
+        ref: "Blog"
+    }
 }, {timestamps: true});
 
 //Export the model
