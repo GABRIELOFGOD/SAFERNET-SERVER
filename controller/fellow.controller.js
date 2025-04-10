@@ -1,9 +1,9 @@
-const { fellowIdCreate, fellowCreator } = require("../utils/creator");
-const { checkFellow, checkFellowId } = require("../utils/dbChecker");
+const { fellowIdCreate, fellowCreator, getAllFellows, findFellow, createdToken } = require("../utils/creator");
+const { checkFellow, checkFellowId, getSingleFellow, getFellowById } = require("../utils/dbChecker");
 const { emailSender } = require("../utils/email.helper");
 const { fellowIDGenerator, fellowMessage, onboardingMail } = require("../utils/fellow.helper");
 const cloudinary = require('../config/cloudinary.config');
-const { emailValidator, phoneNumberValidator, checkPassword, passwordHash, salt } = require("../utils/validator");
+const { emailValidator, phoneNumberValidator, checkPassword, passwordHash, salt, passwordCompare } = require("../utils/validator");
 
 const genrateFellowId = async (req, res) => {
   const { email } = req.body;
@@ -17,7 +17,7 @@ const genrateFellowId = async (req, res) => {
 
     const emailExists = await checkFellow(email);
 
-    if(emailExists) return res.status(400).json({error: 'This fellow has an ID generated already, If you can\'t find your fellow ID, please request for get my fellow ID from our website', success: true});
+    if(emailExists) return res.status(400).json({error: 'This fellow has an ID generated already, If you can\'t find your fellow ID, please request for get my fellow ID from our website', success: false});
 
     const fellowId = await fellowIDGenerator();
 
@@ -51,6 +51,10 @@ const fellowOnboarding = async (req, res) => {
     const passwordIsStrong = checkPassword(password)
 
     if(!passwordIsStrong) return res.status(400).json({ error: "The password entered is not strong enough, make sure your password includes at least a lowecase letter, a uppercase letter, a number and a special character", success: false });
+
+    const fellowOnboarded = await findFellow(fellowId);
+
+    if (fellowOnboarded) return res.status(400).json({error: "You are done with onboarding already, kindly login to your account", success: false});
 
     const salted = await salt()
 
@@ -87,11 +91,57 @@ const fellowOnboarding = async (req, res) => {
 
 const confirmFellow = async (req, res) => {
   try {
-    
-    res.status(200).json({ message: "This user is verified", success: true })
+    const fellow = req.fellow;
+    const fellowOnboarded = await findFellow(fellow.fellowId);
+
+    if (fellowOnboarded) return res.status(400).json({error: "You are done with onboarding already, kindly login to your account", success: false});
+    res.status(200).json({ message: "Data fetched", success: true, fellow });
   } catch (err) {
     res.status(500).json({error: 'something went wrong check the error log or try again later', success: false, errLog: err})
   }
 }
 
-module.exports = { genrateFellowId, fellowOnboarding, confirmFellow }
+const getFellows = async (req, res) => {
+  try {
+    const fellows = await getAllFellows();
+    res.status(200).json({ fellows: fellows.fellow, success: true });
+  } catch (error) {
+    res.status(500).json({error: 'something went wrong check the error log or try again later', success: false, errLog: error})
+  }
+}
+
+const fellowLogin = async (req, res) => {
+  try {
+    const { fellowId, password } = req.body;
+    const fellow = await getSingleFellow(fellowId);
+    
+    if (!fellow) return res.status(400).json({ error: "Invalid credentials", success: false });
+
+    // ======================== COMPARING PASSWORD ====================== //
+    const validPassword = await passwordCompare(password, fellow.password);
+    if(!validPassword) return res.status(401).json({error: 'Invalid credentials', success: false});
+
+    const token = createdToken(fellow._id);
+    res.json({ fellow, token });
+  } catch (error) {
+    res.status(500).json({error: 'something went wrong check the error log or try again later', success: false, errLog: error})
+  }
+}
+
+const fellowProfile = async (req, res) => {
+  try {
+    const { id } = req.fellow;
+    if (!id) return res.status(401).json({ error: "Unauthorized", success: false });
+    
+    const fellow = await getFellowById(id);
+    if (!fellow) return res.status(401).json({ error: "Unauthorized", success: false });
+
+    const token = createdToken(fellow._id);
+
+    res.status(200).json({ fellow, success: true, token });
+  } catch (error) {
+    res.status(500).json({error: 'something went wrong check the error log or try again later', success: false, errLog: error});    
+  }
+}
+
+module.exports = { genrateFellowId, fellowOnboarding, confirmFellow, getFellows, fellowLogin, fellowProfile }

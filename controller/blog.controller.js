@@ -338,7 +338,7 @@ const oneBlog = async (req, res) => {
 
       res.status(201).json({theBlog});
 
-  } catch (err) {
+  } catch (err) {omni
       console.log(err)
       res.status(401).json({error: 'something went wrong check the error log or try again later', success: false, errLog: err});
   }

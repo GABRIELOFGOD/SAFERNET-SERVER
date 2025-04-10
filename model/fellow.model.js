@@ -1,6 +1,5 @@
-const mongoose = require('mongoose'); // Erase if already required
+const mongoose = require('mongoose');
 
-// Declare the Schema of the Mongo model
 var fellowSchema = new mongoose.Schema({
     name:{
         type:String,
@@ -21,7 +20,12 @@ var fellowSchema = new mongoose.Schema({
     },
     image: {
         type: String
-    }
+    },
+    campaigns: [{
+        type: mongoose.Types.ObjectId,
+        ref: 'Campaign',
+        default: []
+    }],
 }, {timestamps: true});
 
 const GenFellowSchema = new mongoose.Schema({

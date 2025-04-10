@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken')
-const { checkCampaign, campaginGetter, oneCampaign } = require("../utils/dbChecker");
-const { campaignCreator } = require('../utils/creator');
+const { checkCampaign, campaginGetter, oneCampaign, getFellowById } = require("../utils/dbChecker");
+const { campaignCreator, createCampaign } = require('../utils/creator');
 const Admin = require('../model/administrator.model');
 const cloudinary = require('../config/cloudinary.config')
 
@@ -93,4 +93,56 @@ const singleCampagin = async (req, res) => {
     }
 }
 
-module.exports = {ourCampaignPost, getCampaign, singleCampagin};
+const fellowPostCampaign = async (req, res) => {
+    try {
+      const { location, body } = req.body;
+      const { id } = req.fellow;
+  
+      const fellow = await getFellowById(id);
+      if (!fellow) return res.status(401).json({ error: 'You are not a fellow, please contact support', success: false });
+  
+      if (!location || !body) {
+        return res.status(401).json({ error: 'Your campaign must have a location and body', success: false });
+      }
+  
+      if (!req.files || req.files.length < 1) {
+        return res.status(401).json({ error: 'Your campaign must have at least one image', success: false });
+      }
+  
+      const campaignExists = await checkCampaign(body);
+      if (campaignExists) return res.status(401).json({ error: 'This campaign has already been posted', success: false });
+  
+      const uploadPromises = req.files.map(file => {
+        return cloudinary.uploader.upload(file.path, {
+          folder: 'campaigns'
+        });
+      });
+  
+      const uploadedImages = await Promise.all(uploadPromises);
+  
+      const imageLinks = uploadedImages.map(img => img.secure_url);
+  
+      const newCampaign = await createCampaign({
+        location,
+        body,
+        images: imageLinks,
+        postedBy: fellow._id
+      });
+  
+      res.status(200).json({
+        success: true,
+        message: 'Campaign posted successfully',
+        data: newCampaign
+      });
+  
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({
+        success: false,
+        error: 'Error occurred while posting campaign. Please try again.',
+        errLog: error
+      });
+    }
+  };
+
+module.exports = { ourCampaignPost, getCampaign, singleCampagin, fellowPostCampaign };

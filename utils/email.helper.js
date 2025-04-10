@@ -14,7 +14,7 @@ const emailSender = (email, message, title) => {
     });
 
     var mailOptions = {
-        from: 'Report from Safernet <report@thesafernet.org>',
+        from: 'Safernet <report@thesafernet.org>',
         to: email,
         subject: title,
         html: message

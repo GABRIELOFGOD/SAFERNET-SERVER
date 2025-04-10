@@ -16,6 +16,7 @@ const createdToken = (id) => {return(jwt.sign({id}, process.env.SAFERNET_SECRET_
 const blogCreator = (blog) => Blog.create(blog);
 
 const campaignCreator = (prep) => Campaign.create(prep);
+const createCampaign = async (prep) => (await Campaign.create(prep)).populate("postedBy");
 
 const eventCreature = (event) => Event.create(event);
 
@@ -31,5 +32,14 @@ const fellowIdCreate = details => GenFellow.create(details);
 
 const fellowCreator = details => Fellow.create(details);
 
+const findFellow = async fellowId => await Fellow.findOne({ fellowId });
 
-module.exports = { adminCreator, createdToken, blogCreator, campaignCreator, eventCreature, reportCreator, newsletterCreator, fellowIdCreate, fellowCreator, mediaPhotoPoster }
+const getAllFellows = async () => Fellow.find().populate('campaigns').select('-password').sort({createdAt: -1}).then((fellow) => {
+    if(!fellow) return {error: 'No fellow found', success: false};
+    return {fellow, success: true}
+}).catch((err) => {
+    return {error: 'Something went wrong', success: false, errLog: err};
+});
+
+
+module.exports = { adminCreator, createdToken, blogCreator, campaignCreator, eventCreature, reportCreator, newsletterCreator, fellowIdCreate, fellowCreator, mediaPhotoPoster, getAllFellows, findFellow, createCampaign };

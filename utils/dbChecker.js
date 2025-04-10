@@ -2,7 +2,7 @@ const Admin = require("../model/administrator.model");
 const Blog = require("../model/blog.model");
 const Campaign = require("../model/campaign.model");
 const Event = require("../model/event.model");
-const { GenFellow } = require("../model/fellow.model");
+const { GenFellow, Fellow } = require("../model/fellow.model");
 const Media = require("../model/media.model");
 const Newsletter = require("../model/newsletter.model");
 const Report = require("../model/report.model");
@@ -29,7 +29,7 @@ const allReports = () => Report.find();
 
 // ========================= CAMPAIGN DB CHECKER ===================================== //
 const checkCampaign = (title) => Campaign.findOne({title});
-const campaginGetter = () => Campaign.find();
+const campaginGetter = async () => await Campaign.find().populate("postedBy").select("-__v -createdAt -updatedAt");
 const oneCampaign = id => Campaign.findById(id);
 
 // ======================= NEWSLETTER DB CHECKER ================================== //
@@ -43,7 +43,9 @@ const getMediaId = id => Media.findById(id);
 const deleteMediaId = id => Media.findByIdAndDelete(id);
 
 // ===================== FELLOW DOMAIN ============================= //
-const checkFellow = email => GenFellow.findOne({email})
-const checkFellowId = fellowId => GenFellow.findOne({fellowId})
+const checkFellow = email => GenFellow.findOne({email});
+const checkFellowId = fellowId => GenFellow.findOne({fellowId});
+const getSingleFellow = async fellowId => await Fellow.findOne({fellowId});
+const getFellowById = async id => await Fellow.findById(id).populate("campaigns").select("-password -__v -createdAt -updatedAt");
 
-module.exports = { emailChecker, phoneChecker, adminFinder, blogChecker, allBlogs, checkCampaign, checkEvent, getEvent, allReports, campaginGetter, singleBlog, blogDeleter, blogUpdater, oneCampaign, checkNewsletter, checkFellow, checkFellowId, singleBlogTitle, allMediaPhoto, mediaPhotoExists, mediaPhotoTitle, getMediaId, deleteMediaId };
+module.exports = { emailChecker, phoneChecker, adminFinder, blogChecker, allBlogs, checkCampaign, checkEvent, getEvent, allReports, campaginGetter, singleBlog, blogDeleter, blogUpdater, oneCampaign, checkNewsletter, checkFellow, checkFellowId, singleBlogTitle, allMediaPhoto, mediaPhotoExists, mediaPhotoTitle, getMediaId, deleteMediaId, getSingleFellow, getFellowById };
