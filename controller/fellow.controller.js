@@ -26,8 +26,7 @@ const genrateFellowId = async (req, res) => {
     const genratedFellowIDSaved = await fellowIdCreate(details)
 
     const messageF = fellowMessage(fellowId, email);
-
-    const sendingMail = await emailSender(email, messageF, "Online safety fellowship Fellow ID")
+    const sendingMail = emailSender(email, messageF, "Online safety fellowship Fellow ID")
 
     return res.status(200).json({ success: true, message: 'User ID created successfully, Fellow should check their email to get their fellow ID and login to our website to complete their profile' })
 
