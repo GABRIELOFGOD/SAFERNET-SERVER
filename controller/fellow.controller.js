@@ -25,7 +25,7 @@ const genrateFellowId = async (req, res) => {
 
     const genratedFellowIDSaved = await fellowIdCreate(details)
 
-    const messageF = fellowMessage(fellowId)
+    const messageF = fellowMessage(fellowId, email);
 
     const sendingMail = await emailSender(email, messageF, "Online safety fellowship Fellow ID")
 
