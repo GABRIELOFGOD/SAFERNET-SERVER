@@ -22,7 +22,7 @@ const PORT = process.env.PORT || 3200
 mongoDbConnect();
 
 app.use(cors({
-    origin: ['https://thesafernet.org', 'http://localhost:5173', 'http://localhost:5174', 'https://safernet-gamma.vercel.app'],
+    origin: ['https://thesafernet.org', 'http://localhost:5173', 'http://localhost:5174', 'https://safernet-gamma.vercel.app', 'https://legal.thesafernet.org'],
     methods: ['GET', 'HEAD', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Origin', 'X-Requested-With', 'Content-Type', 'Accept', 'Authorization'],
     credentials: true
